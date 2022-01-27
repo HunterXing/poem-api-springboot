@@ -61,7 +61,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "删除用户", notes = "删除用户")
-    @ApiImplicitParam(name = "user", value = "User的对象", required = true, dataType = "User")
+    @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int")
     @DeleteMapping("/delete/{userId}")
     public Response<Boolean> deleteUserById(@PathVariable("userId") Integer id) {
         boolean isOk = userService.deleteUserById(id);
