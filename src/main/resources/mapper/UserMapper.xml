@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiit.webapi.mapper.UserMapper">
+    <resultMap id="UserResult" type="com.aiit.webapi.model.entity.User">
+        <result property="id" column="id"></result>
+        <result property="name" column="name"></result>
+        <result property="age" column="age"></result>
+    </resultMap>
+    <!-- 在mapper中添加属性useGeneratedKeys和指定keyProperty属性 -->
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="user.id"   parameterType="com.aiit.webapi.model.entity.User" >
+        INSERT INTO tb_user (name, age)
+        VALUES
+            (#{user.name}, #{user.age});
+    </insert>
+    <update id="updateUser">
+        UPDATE tb_user
+        SET name = #{user.name}, age = #{user.age}
+            WHERE id = #{user.id};
+    </update>
+    <select id="findUsers" resultMap="UserResult">
+        select id,name from tb_user
+        order by id desc
+        limit #{pageOffset}, #{pageSize}
+    </select>
+    <select id="findAll" resultType="com.aiit.webapi.model.entity.User">
+        select id,name from tb_user
+    </select>
+</mapper>
