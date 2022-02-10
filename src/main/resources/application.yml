@@ -2,7 +2,7 @@
 server:
   port: 8080
   servlet:
-    context-path: /test
+    context-path: /api
 #spring环境配置
 spring:
   profiles:

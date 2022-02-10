@@ -1,6 +1,8 @@
 package com.aiit.webapi.service.intf;
 
+import com.aiit.webapi.model.dto.UserPageDTO;
 import com.aiit.webapi.model.entity.User;
+import com.aiit.webapi.model.vo.UserInfoVo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -10,20 +12,12 @@ import java.util.List;
  */
 public interface UserService {
     /**
-     * 返回用户列表
-     * @param pageIndex
-     * @param pageSize
-     * @return
-     */
-    List<User> findUsers(Integer pageIndex, Integer pageSize);
-
-    /**
      * 通过分页插件查询用户列表
      * @param pageIndex
      * @param pageSize
      * @return
      */
-    PageInfo<User> findAll(Integer pageIndex, Integer pageSize);
+    PageInfo<UserInfoVo> findAll(UserPageDTO user);
 
     /**
      * 新增用户

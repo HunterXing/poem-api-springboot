@@ -1,6 +1,8 @@
 package com.aiit.webapi.mapper;
 
+import com.aiit.webapi.model.dto.UserPageDTO;
 import com.aiit.webapi.model.entity.User;
+import com.aiit.webapi.model.vo.UserInfoVo;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,18 +17,10 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     /**
-     * 查找所有用户信息 通过limit分页
-     * @param pageOffset
-     * @param pageSize
-     * @return
-     */
-    List<User> findUsers(Integer pageOffset, Integer pageSize);
-
-    /**
      * 查找用户 通过分页插件
      * @return
      */
-    List<User> findAll();
+    List<UserInfoVo> findAll(@Param("userInfo") UserPageDTO userInfo);
     /**
      * 通过id查找用户
      * @param id

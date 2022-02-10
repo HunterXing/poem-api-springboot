@@ -18,11 +18,24 @@
             WHERE id = #{user.id};
     </update>
     <select id="findUsers" resultMap="UserResult">
-        select id,name from tb_user
+        select tb_user.id, tb_user.name,  tb_dept.id as deptId, tb_dept.name as deptName from tb_user
+        Left join tb_dept
+        on tb_user.dept_id = tb_dept.id
         order by id desc
         limit #{pageOffset}, #{pageSize}
     </select>
-    <select id="findAll" resultType="com.aiit.webapi.model.entity.User">
-        select id,name from tb_user
+    <select id="findAll" resultType="com.aiit.webapi.model.vo.UserInfoVo">
+        select tb_user.id, tb_user.name, tb_dept.id as deptId, tb_dept.name as deptName from tb_user
+         Left join tb_dept
+         on tb_user.dept_id = tb_dept.id
+         where 1 = 1
+        <if test="userInfo!=null">
+            <if test="userInfo.name">
+                and tb_user.name like '%' #{userInfo.name} '%'
+            </if>
+            <if test="userInfo.deptId">
+                and tb_dept.id = #{userInfo.deptId}
+            </if>
+        </if>
     </select>
 </mapper>

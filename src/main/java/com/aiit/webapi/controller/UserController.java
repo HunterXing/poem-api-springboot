@@ -1,7 +1,9 @@
 package com.aiit.webapi.controller;
 
 import com.aiit.webapi.model.dto.PageDTO;
+import com.aiit.webapi.model.dto.UserPageDTO;
 import com.aiit.webapi.model.entity.User;
+import com.aiit.webapi.model.vo.UserInfoVo;
 import com.aiit.webapi.service.intf.UserService;
 import com.aiit.webapi.utils.Response;
 import com.aiit.webapi.model.vo.UserVo;
@@ -13,12 +15,12 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author xinghengpo
  */
 @Api(tags = "用户相关api")
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -31,8 +33,8 @@ public class UserController {
      */
     @ApiOperation(value = "分页查询用户列表", notes = "分页查询用户列表")
     @PostMapping("/list")
-    public Response<PageInfo<User>> findAll(@RequestBody PageDTO pageDTO) {
-        PageInfo<User> userList = userService.findAll(pageDTO.getPageIndex(), pageDTO.getPageSize());
+    public Response<PageInfo<UserInfoVo>> findAll(@RequestBody UserPageDTO pageDTO) {
+        PageInfo<UserInfoVo> userList = userService.findAll(pageDTO);
         return Response.success(userList);
     }
 

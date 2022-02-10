@@ -1,7 +1,9 @@
 package com.aiit.webapi.service.impl;
 
+import com.aiit.webapi.model.dto.UserPageDTO;
 import com.aiit.webapi.model.entity.User;
 import com.aiit.webapi.mapper.UserMapper;
+import com.aiit.webapi.model.vo.UserInfoVo;
 import com.aiit.webapi.service.intf.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -17,20 +19,15 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
-    @Override
-    public List<User> findUsers(Integer pageIndex, Integer pageSize) {
-        List<User> list = userMapper.findUsers((pageIndex - 1) * pageSize, pageSize);
-        return list;
-    }
 
     @Override
-    public PageInfo<User> findAll(Integer pageIndex, Integer pageSize) {
+    public PageInfo<UserInfoVo> findAll(UserPageDTO user) {
         // 分页
-        PageHelper.startPage(pageIndex,pageSize);
+        PageHelper.startPage(user.getPageIndex(),user.getPageSize());
         //查询分组列表
-        List<User> list = userMapper.findAll();
+        List<UserInfoVo> list = userMapper.findAll(user);
         // 获取分页信息
-        PageInfo<User> pageInfo = new PageInfo<>(list);
+        PageInfo<UserInfoVo> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
 
