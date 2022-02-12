@@ -1,5 +1,6 @@
 package com.aiit.webapi.controller;
 
+import com.aiit.webapi.model.dto.LoginDTO;
 import com.aiit.webapi.model.dto.PageDTO;
 import com.aiit.webapi.model.dto.UserPageDTO;
 import com.aiit.webapi.model.entity.User;
@@ -48,7 +49,7 @@ public class UserController {
     @ApiOperation(value = "新增或更新用户", notes = "新增或更新用户")
     @ApiImplicitParam(name = "user", value = "User的对象", required = true, dataType = "User")
     @PostMapping("/addOrUpdate")
-    public Response<UserVo> addOrUpdate(@RequestBody User user) {
+    public Response addOrUpdate(@RequestBody User user) {
         UserVo userVo = new UserVo();
         // 如果不存在，则是新增，返回新增的主键
         if(!ObjectUtils.isEmpty(user.getId())) {
@@ -56,7 +57,10 @@ public class UserController {
             userVo.setUpdate(isUpdate);
             userVo.setUserId(user.getId());
         } else {
-            int addId = userService.addUser(user);
+            String addId = userService.addUser(user);
+            if(addId == "not uniq") {
+                return Response.success("account重复");
+            }
             userVo.setUserId(addId);
         }
         return Response.success(userVo);
@@ -68,5 +72,11 @@ public class UserController {
     public Response<Boolean> deleteUserById(@PathVariable("userId") Integer id) {
         boolean isOk = userService.deleteUserById(id);
         return isOk ? Response.success(true) : Response.error(500, "删除失败");
+    }
+
+    @PostMapping("/login")
+    public Response<Boolean> login(@RequestBody LoginDTO user) {
+        boolean isOk = userService.login(user);
+        return isOk ? Response.success(true) : Response.error(200, "登录失败", false);
     }
 }

@@ -48,4 +48,8 @@ public class Response<T> implements Serializable {
     public static <E> Response<E> error(Integer code, String msg) {
         return new Response<E>(code, msg, null);
     }
+
+    public static <E> Response<E> error(Integer code, String msg, E data) {
+        return new Response<E>(code, msg, data);
+    }
 }

@@ -1,5 +1,6 @@
 package com.aiit.webapi.service.intf;
 
+import com.aiit.webapi.model.dto.LoginDTO;
 import com.aiit.webapi.model.dto.UserPageDTO;
 import com.aiit.webapi.model.entity.User;
 import com.aiit.webapi.model.vo.UserInfoVo;
@@ -13,8 +14,6 @@ import java.util.List;
 public interface UserService {
     /**
      * 通过分页插件查询用户列表
-     * @param pageIndex
-     * @param pageSize
      * @return
      */
     PageInfo<UserInfoVo> findAll(UserPageDTO user);
@@ -22,9 +21,8 @@ public interface UserService {
     /**
      * 新增用户
      * @param user
-     * @return
      */
-    int addUser(User user);
+    String addUser(User user);
 
     /**
      * 更新用户
@@ -46,4 +44,18 @@ public interface UserService {
      * @return
      */
     Boolean deleteUserById(Integer id);
+
+    /**
+     * 登录
+     * @param user
+     * @return
+     */
+    boolean login(LoginDTO user);
+
+    /**
+     * 用户账号是否唯一
+     * @param user
+     * @return
+     */
+    Boolean isUniqAccount(User user);
 }

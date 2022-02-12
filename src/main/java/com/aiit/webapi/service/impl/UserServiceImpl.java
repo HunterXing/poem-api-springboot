@@ -1,5 +1,8 @@
 package com.aiit.webapi.service.impl;
 
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.crypto.SecureUtil;
+import com.aiit.webapi.model.dto.LoginDTO;
 import com.aiit.webapi.model.dto.UserPageDTO;
 import com.aiit.webapi.model.entity.User;
 import com.aiit.webapi.mapper.UserMapper;
@@ -32,12 +35,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int addUser(User user) {
-        // mapper返回的数值总会是影响数,真正的id是mybatis 封装在insertMode中, 需要insertMode.getId()获取
-        userMapper.addUser(user);
-        // insertMode.getId()获取新增的主键
-        int userId = user.getId();
-        return userId;
+    public String addUser(User user) {
+        if(isUniqAccount(user)) {
+            // mapper返回的数值总会是影响数,真正的id是mybatis 封装在insertMode中, 需要insertMode.getId()获取
+            user.setId(IdUtil.simpleUUID());
+            String md5Password = SecureUtil.md5(user.getPassword()+user.getAccount());
+            user.setPassword(md5Password);
+            userMapper.addUser(user);
+            // insertMode.getId()获取新增的主键
+            String userId = user.getId();
+            return userId;
+        } else {
+            return "not uniq";
+        }
     }
 
     /**
@@ -59,5 +69,18 @@ public class UserServiceImpl implements UserService {
     public Boolean deleteUserById(Integer id) {
         boolean isOk = userMapper.deleteUserById(id);
         return isOk;
+    }
+
+    @Override
+    public boolean login(LoginDTO user) {
+        String md5Password = SecureUtil.md5(user.getPassword()+user.getUsername());
+        user.setPassword(md5Password);
+        boolean isOk = userMapper.login(user) > 0;
+        return isOk;
+    }
+
+    @Override
+    public Boolean isUniqAccount(User user) {
+        return userMapper.accountNum(user) < 1;
     }
 }

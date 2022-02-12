@@ -1,5 +1,6 @@
 package com.aiit.webapi.mapper;
 
+import com.aiit.webapi.model.dto.LoginDTO;
 import com.aiit.webapi.model.dto.UserPageDTO;
 import com.aiit.webapi.model.entity.User;
 import com.aiit.webapi.model.vo.UserInfoVo;
@@ -51,4 +52,18 @@ public interface UserMapper {
     @Delete("DELETE from tb_user where id = #{id}")
     Boolean deleteUserById(@Param("id") int id);
 
+    /**
+     * 登录
+     * @param user
+     * @return
+     */
+    int login(@Param("user") LoginDTO user);
+
+    /**
+     * 查看账户唯一性
+     * @param user
+     * @return
+     */
+    @Select("SELECT count(1) from tb_user where account = #{user.account}")
+    int accountNum(@Param("user") User user);
 }

@@ -10,7 +10,7 @@ public class UserVo {
     /**
      * 插入对象成功返回的id
      */
-    private int userId;
+    private String userId;
     /**
      * 操作是否更新成功
      */

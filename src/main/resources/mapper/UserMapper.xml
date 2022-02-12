@@ -8,9 +8,9 @@
     </resultMap>
     <!-- 在mapper中添加属性useGeneratedKeys和指定keyProperty属性 -->
     <insert id="addUser" useGeneratedKeys="true" keyProperty="user.id"   parameterType="com.aiit.webapi.model.entity.User" >
-        INSERT INTO tb_user (name, age)
+        INSERT INTO tb_user (id, name, age, email, account, password, dept_id)
         VALUES
-            (#{user.name}, #{user.age});
+            (#{user.id}, #{user.name}, #{user.age}, #{user.email}, #{user.account}, #{user.password}, #{user.deptId});
     </insert>
     <update id="updateUser">
         UPDATE tb_user
@@ -37,5 +37,10 @@
                 and tb_dept.id = #{userInfo.deptId}
             </if>
         </if>
+    </select>
+    <select id="login" resultType="java.lang.Integer">
+        select count(1) from tb_user
+        where 1 = 1
+          and tb_user.password = #{user.password} and tb_user.account = #{user.username}
     </select>
 </mapper>
