@@ -19,6 +19,7 @@ import java.util.List;
 public interface UserMapper {
     /**
      * 查找用户 通过分页插件
+     * @param userInfo
      * @return
      */
     List<UserInfoVo> findAll(@Param("userInfo") UserPageDTO userInfo);
