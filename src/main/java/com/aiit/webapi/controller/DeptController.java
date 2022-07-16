@@ -3,11 +3,11 @@ package com.aiit.webapi.controller;
 import com.aiit.webapi.model.dto.PageDTO;
 import com.aiit.webapi.model.vo.DeptVo;
 import com.aiit.webapi.service.intf.DeptService;
+import com.aiit.webapi.utils.PageVo;
 import com.aiit.webapi.utils.Response;
-import com.github.pagehelper.PageInfo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -25,15 +25,8 @@ public class DeptController {
 
     @ApiOperation(value = "分页查询部门列表", notes = "分页查询部门列表")
     @PostMapping("/list")
-    public Response<PageInfo<DeptVo>> findAll(@RequestBody PageDTO pageDTO) {
-        PageInfo<DeptVo> deptList = deptService.findAll(pageDTO.getPageIndex(), pageDTO.getPageSize());
-        return Response.success(deptList);
-    }
-
-    @ApiOperation(value = "查询部门所有列表", notes = "查询部门所有列表")
-    @GetMapping("/list")
-    public Response<PageInfo<DeptVo>> findAll() {
-        PageInfo<DeptVo> deptList = deptService.findAll();
+    public Response<PageVo> findAll(@RequestBody PageDTO pageDTO) {
+        PageVo deptList = deptService.findAll(pageDTO.getPageIndex(), pageDTO.getPageSize());
         return Response.success(deptList);
     }
 }

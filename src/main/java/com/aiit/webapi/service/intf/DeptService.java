@@ -1,8 +1,8 @@
 package com.aiit.webapi.service.intf;
 
 import com.aiit.webapi.model.vo.DeptVo;
-import com.aiit.webapi.model.vo.UserInfoVo;
-import com.github.pagehelper.PageInfo;
+import com.aiit.webapi.utils.PageVo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 /**
  * @author xingheng
@@ -16,10 +16,5 @@ public interface DeptService {
      * @param pageSize
      * @return
      */
-    PageInfo<DeptVo> findAll(Integer pageIndex, Integer pageSize);
-    /**
-     * 查询所有组织
-     * @return
-     */
-    PageInfo<DeptVo> findAll();
+    PageVo findAll(Integer pageIndex, Integer pageSize);
 }

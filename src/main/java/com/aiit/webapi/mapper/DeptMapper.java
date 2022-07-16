@@ -1,7 +1,8 @@
 package com.aiit.webapi.mapper;
 
 import com.aiit.webapi.model.vo.DeptVo;
-import com.aiit.webapi.model.vo.UserInfoVo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,8 +13,8 @@ import java.util.List;
 @Mapper
 public interface DeptMapper {
     /**
-     * 查找用户 通过分页插件
+     * 查找组织 通过分页插件
      * @return
      */
-    List<DeptVo> findAll();
+    IPage<DeptVo> findAll(Page<?> page);
 }

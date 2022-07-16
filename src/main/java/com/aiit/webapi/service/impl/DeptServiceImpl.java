@@ -1,12 +1,11 @@
 package com.aiit.webapi.service.impl;
 
 import com.aiit.webapi.mapper.DeptMapper;
-import com.aiit.webapi.mapper.UserMapper;
 import com.aiit.webapi.model.vo.DeptVo;
-import com.aiit.webapi.model.vo.UserInfoVo;
 import com.aiit.webapi.service.intf.DeptService;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.aiit.webapi.utils.PageVo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,22 +19,15 @@ public class DeptServiceImpl implements DeptService {
     @Resource
     private DeptMapper deptMapper;
     @Override
-    public PageInfo<DeptVo> findAll(Integer pageIndex, Integer pageSize) {
-        // 分页
-        PageHelper.startPage(pageIndex,pageSize);
-        //查询分组列表
-        List<DeptVo> list = deptMapper.findAll();
+    public PageVo findAll(Integer pageIndex, Integer pageSize) {
+        Page<DeptVo> pageParam = new Page<>(pageIndex, pageSize);
+        IPage<DeptVo> pageInfo = deptMapper.findAll(pageParam);
+        List<DeptVo> deptList =  pageInfo.getRecords();
+
+        PageVo pageVo = new PageVo(pageInfo);
+
         // 获取分页信息
-        PageInfo<DeptVo> pageInfo = new PageInfo<>(list);
-        return pageInfo;
+        return pageVo;
     }
 
-    @Override
-    public PageInfo<DeptVo> findAll() {
-        //查询分组列表
-        List<DeptVo> list = deptMapper.findAll();
-        // 获取分页信息
-        PageInfo<DeptVo> pageInfo = new PageInfo<>(list);
-        return pageInfo;
-    }
 }

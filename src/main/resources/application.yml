@@ -1,6 +1,6 @@
 # 工程访问设置
 server:
-  port: 8080
+  port: 80
   servlet:
     context-path: /api
 #spring环境配置
@@ -8,9 +8,11 @@ spring:
   profiles:
     # 运行环境 dev|prd,根据active动态加载application-active.yml配置文件
     active: dev
+    include: mybatis-plus-mysql
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
 pagehelper:
   helper-dialect: mysql
   reasonable: true
