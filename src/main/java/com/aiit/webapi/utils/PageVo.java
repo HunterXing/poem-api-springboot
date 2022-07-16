@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,7 +13,7 @@ import java.util.List;
  */
 @ApiModel
 @Data
-public class PageVo<T> implements Serializable {
+public class PageVo<T> {
 
     @ApiModelProperty(notes = "总条数")
     private long total;
