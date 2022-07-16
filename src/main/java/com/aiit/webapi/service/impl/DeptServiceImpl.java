@@ -30,4 +30,10 @@ public class DeptServiceImpl implements DeptService {
         return pageVo;
     }
 
+    @Override
+    public List<DeptVo> findAll() {
+        List<DeptVo> deptList = deptMapper.findAll();
+        return deptList;
+    }
+
 }

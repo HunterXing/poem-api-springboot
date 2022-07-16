@@ -17,4 +17,10 @@ public interface DeptMapper {
      * @return
      */
     IPage<DeptVo> findAll(Page<?> page);
+
+    /**
+     * 查找组织
+     * @return
+     */
+    List<DeptVo> findAll();
 }

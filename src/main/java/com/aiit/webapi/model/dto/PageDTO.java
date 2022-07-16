@@ -12,6 +12,6 @@ import lombok.Data;
 public class PageDTO {
     @ApiModelProperty(notes = "当前显示页数")
     private Integer pageIndex;
-    @ApiModelProperty(notes = "每页显示皮数")
+    @ApiModelProperty(notes = "每页显示条数")
     private Integer pageSize;
 }

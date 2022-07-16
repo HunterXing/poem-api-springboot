@@ -4,6 +4,8 @@ import com.aiit.webapi.model.vo.DeptVo;
 import com.aiit.webapi.utils.PageVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
+import java.util.List;
+
 /**
  * @author xingheng
  */
@@ -17,4 +19,10 @@ public interface DeptService {
      * @return
      */
     PageVo findAll(Integer pageIndex, Integer pageSize);
+
+    /**
+     * 查询所有组织
+     * @return
+     */
+    List<DeptVo> findAll();
 }

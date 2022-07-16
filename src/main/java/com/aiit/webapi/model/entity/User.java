@@ -1,5 +1,8 @@
 package com.aiit.webapi.model.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -9,8 +12,10 @@ import lombok.Data;
  */
 @ApiModel
 @Data
+@TableName("tb_user")
 public class User {
     @ApiModelProperty(notes = "用户id")
+    @TableId(value = "id", type = IdType.ASSIGN_UUID)
     private String id;
     @ApiModelProperty(notes = "用户年龄")
     private Integer age;
