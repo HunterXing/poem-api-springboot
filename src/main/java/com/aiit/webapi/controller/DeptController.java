@@ -23,14 +23,14 @@ public class DeptController {
     private DeptService deptService;
 
     @ApiOperation(value = "分页查询部门列表", notes = "分页查询部门列表")
-    @PostMapping("/list")
-    public Response<PageVo> findAll(@RequestBody PageDTO pageDTO) {
-        PageVo deptList = deptService.findAll(pageDTO.getPageIndex(), pageDTO.getPageSize());
+    @GetMapping("/page")
+    public Response<PageVo> findAll(@RequestParam Integer pageIndex, @RequestParam Integer pageSize) {
+        PageVo deptList = deptService.findAll(pageIndex, pageSize);
         return Response.success(deptList);
     }
 
     @ApiOperation(value = "查询所有部门", notes = "查询所有部门")
-    @PostMapping("/list/all")
+    @GetMapping("/list")
     public Response<List> findAll() {
         List deptList = deptService.findAll();
         return Response.success(deptList);

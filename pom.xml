@@ -56,14 +56,6 @@
         </dependency>
         <!-- swagger2 -->
 
-        <!-- HuTool -->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.7.20</version>
-        </dependency>
-        <!-- HuTool -->
-
         <!-- mybatis-plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
