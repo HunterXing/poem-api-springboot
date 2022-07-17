@@ -4,13 +4,15 @@ mybatis-plus:
   mapper-locations: classpath*:mapper/**/*.xml
   global-config:
     db-config:
-      #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"唯一ID";
-      id-type: 3
-      #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+      #主键类型
+        #AUTO	数据库 ID 自增
+        #NONE	无状态，该类型为未设置主键类型（注解里等于跟随全局，全局里约等于 INPUT）
+        #INPUT	insert 前自行 set 主键值
+        #ASSIGN_ID	分配 ID(主键类型为 Number(Long 和 Integer)或 String)(since 3.3.0),使用接口IdentifierGenerator的方法nextId(默认实现类为DefaultIdentifierGenerator雪花算法)
+        #ASSIGN_UUID 分配 UUID,主键类型为 String(since 3.3.0),使用接口IdentifierGenerator的方法nextUUID(默认 default 方法)
+      id-type: ASSIGN_UUID
       #驼峰下划线转换
-      db-column-underline: true
-      #刷新mapper 调试神器
-      refresh-mapper: true
+      table-underline: true
       #数据库大写下划线转换
       capital-mode: true
       #删除时的值
@@ -21,6 +23,7 @@ mybatis-plus:
       insert-strategy: not_null
       # 不是null就更新到数据库中，否则不生成set字段
       update-strategy: not_null
+
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false

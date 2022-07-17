@@ -1,11 +1,13 @@
 package com.aiit.webapi.service.impl;
 
 import com.aiit.webapi.mapper.DeptMapper;
+import com.aiit.webapi.model.entity.Dept;
 import com.aiit.webapi.model.vo.DeptVo;
 import com.aiit.webapi.service.intf.DeptService;
 import com.aiit.webapi.utils.PageVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,7 +17,7 @@ import java.util.List;
  * @author xingheng
  */
 @Service
-public class DeptServiceImpl implements DeptService {
+public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements DeptService {
     @Resource
     private DeptMapper deptMapper;
     @Override
@@ -35,5 +37,4 @@ public class DeptServiceImpl implements DeptService {
         List<DeptVo> deptList = deptMapper.findAll();
         return deptList;
     }
-
 }

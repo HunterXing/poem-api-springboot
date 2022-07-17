@@ -1,8 +1,9 @@
 package com.aiit.webapi.service.intf;
 
+import com.aiit.webapi.model.entity.Dept;
 import com.aiit.webapi.model.vo.DeptVo;
 import com.aiit.webapi.utils.PageVo;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @author xingheng
  */
 
-public interface DeptService {
+public interface DeptService extends IService<Dept> {
     /**
      * 通过分页插件查询组织列表
      *
