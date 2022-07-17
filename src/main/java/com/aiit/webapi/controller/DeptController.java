@@ -75,6 +75,19 @@ public class DeptController {
         }
     }
 
+    @ApiOperation(value = "单个删除部门", notes = "删除部门")
+    @DeleteMapping("/{id}")
+    public Response<Boolean> delete(
+            @PathVariable Integer id
+    ) {
+        try {
+            Boolean delFlag = deptService.removeById(id);
+            return Response.success(delFlag ? "删除部门成功" : "删除部门失败", delFlag);
+        } catch (Exception e) {
+            return Response.error(500, "删除部门失败");
+        }
+    }
+
     public String validateError(BindingResult bindingResult, Dept dept) {
         if(bindingResult.hasErrors()) {
             return Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
