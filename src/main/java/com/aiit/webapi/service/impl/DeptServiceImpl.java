@@ -5,7 +5,9 @@ import com.aiit.webapi.model.entity.Dept;
 import com.aiit.webapi.model.vo.DeptVo;
 import com.aiit.webapi.service.intf.DeptService;
 import com.aiit.webapi.utils.PageVo;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -36,5 +38,16 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
     public List<DeptVo> findAll() {
         List<DeptVo> deptList = deptMapper.findAll();
         return deptList;
+    }
+
+    /**
+     * @param dept
+     * @return
+     */
+    @Override
+    public Boolean checkNameRepeat(Dept dept) {
+        LambdaQueryWrapper<Dept> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Dept::getName, dept.getName());
+        return count(queryWrapper) > 0;
     }
 }

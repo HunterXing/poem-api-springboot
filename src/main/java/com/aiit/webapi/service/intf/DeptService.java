@@ -26,4 +26,11 @@ public interface DeptService extends IService<Dept> {
      * @return
      */
     List<DeptVo> findAll();
+
+    /**
+     * 查询组织名称是否重复
+     * @param  dept
+     * @return
+     */
+    Boolean checkNameRepeat(Dept dept);
 }

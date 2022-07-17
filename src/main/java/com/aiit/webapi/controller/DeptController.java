@@ -51,6 +51,9 @@ public class DeptController {
         if(bindingResult.hasErrors()) {
             return Response.error(500, Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
+        if(deptService.checkNameRepeat(dept)) {
+            return Response.error(500, "部门名称重复");
+        }
         try {
             Boolean isOk = deptService.save(dept);
             int deptId =  dept.getId();
