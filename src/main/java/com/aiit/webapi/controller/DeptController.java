@@ -1,15 +1,12 @@
 package com.aiit.webapi.controller;
 
-import com.aiit.webapi.model.dto.PageDTO;
 import com.aiit.webapi.model.entity.Dept;
-import com.aiit.webapi.model.vo.DeptVo;
 import com.aiit.webapi.service.intf.DeptService;
 import com.aiit.webapi.utils.PageVo;
 import com.aiit.webapi.utils.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -67,7 +64,7 @@ public class DeptController {
             @RequestBody Dept dept
     ) {
         if(deptService.checkNameRepeat(dept)) {
-            Response.error(500, "部门名称重复");
+            return Response.error(500, "部门名称重复");
         }
         try {
             deptService.updateById(dept);
