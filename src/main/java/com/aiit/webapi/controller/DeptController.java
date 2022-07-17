@@ -43,23 +43,48 @@ public class DeptController {
     }
 
     @ApiOperation(value = "新增部门", notes = "新增部门")
-    @PostMapping("/add")
+    @PostMapping
     public Response<Integer> add(
             @Valid @RequestBody Dept dept,
             BindingResult bindingResult
     ) {
-        if(bindingResult.hasErrors()) {
-            return Response.error(500, Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
-        }
-        if(deptService.checkNameRepeat(dept)) {
-            return Response.error(500, "部门名称重复");
+        String errorMessage = validateError(bindingResult, dept);
+        if(errorMessage != "") {
+            return Response.error(500, errorMessage);
         }
         try {
-            Boolean isOk = deptService.save(dept);
+            deptService.save(dept);
             int deptId =  dept.getId();
             return Response.success("新增部门成功", deptId);
         } catch (Exception e) {
             return Response.error(500, "新增部门失败");
         }
+    }
+
+    @ApiOperation(value = "修改部门", notes = "修改部门")
+    @PutMapping
+    public Response<Integer> update(
+            @RequestBody Dept dept
+    ) {
+        if(deptService.checkNameRepeat(dept)) {
+            Response.error(500, "部门名称重复");
+        }
+        try {
+            deptService.updateById(dept);
+            int deptId =  dept.getId();
+            return Response.success("修改部门信息成功", deptId);
+        } catch (Exception e) {
+            return Response.error(500, "修改部门信息失败");
+        }
+    }
+
+    public String validateError(BindingResult bindingResult, Dept dept) {
+        if(bindingResult.hasErrors()) {
+            return Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
+        }
+        if(deptService.checkNameRepeat(dept)) {
+            return "部门名称重复";
+        }
+        return "";
     }
 }
