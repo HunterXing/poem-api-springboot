@@ -4,6 +4,7 @@ import com.aiit.webapi.model.entity.Dept;
 import com.aiit.webapi.service.intf.DeptService;
 import com.aiit.webapi.utils.PageVo;
 import com.aiit.webapi.utils.Response;
+import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.BindingResult;
@@ -82,6 +83,20 @@ public class DeptController {
     ) {
         try {
             Boolean delFlag = deptService.removeById(id);
+            return Response.success(delFlag ? "删除部门成功" : "删除部门失败", delFlag);
+        } catch (Exception e) {
+            return Response.error(500, "删除部门失败");
+        }
+    }
+
+    @ApiOperation(value = "批量删除部门", notes = "批量删除部门")
+    @DeleteMapping("/batch/{ids}")
+    public Response<Boolean> deleteBatch(
+            @PathVariable String ids
+    ) {
+        List<String> idList = Lists.newArrayList(ids.split(","));
+        try {
+            Boolean delFlag = deptService.removeByIds(idList);
             return Response.success(delFlag ? "删除部门成功" : "删除部门失败", delFlag);
         } catch (Exception e) {
             return Response.error(500, "删除部门失败");
