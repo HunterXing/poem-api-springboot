@@ -2,10 +2,13 @@ package com.aiit.webapi.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * @author xingheng
@@ -29,4 +32,7 @@ public class User {
     private String account;
     @ApiModelProperty(notes = "部门id")
     private Integer deptId;
+    @ApiModelProperty(notes = "用户状态，0：正常，1：禁用")
+    @TableLogic
+    private Integer delFlag;
 }
